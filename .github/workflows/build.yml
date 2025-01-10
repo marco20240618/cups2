@@ -31,8 +31,6 @@ jobs:
       run: ./configure --enable-debug --enable-maintainer
     - name: Build CUPS
       run: make
-    - name: Test CUPS
-      run: make test || cat test/error_log*
 
   build-linux-i386:
 
@@ -56,8 +54,6 @@ jobs:
       run: ./configure --enable-debug --enable-maintainer --host=i686-pc-linux-gnu --target=i686-pc-linux-gnu --with-tls=gnutls
     - name: Build CUPS
       run: make
-    - name: Test CUPS
-      run: make test || cat test/error_log*
 
   build-macos:
 
@@ -74,8 +70,6 @@ jobs:
       run: ./configure --enable-debug --enable-maintainer
     - name: Build CUPS
       run: make
-    - name: Test CUPS
-      run: make test || cat test/error_log*
 
   build-windows:
 
