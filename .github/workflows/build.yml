@@ -88,11 +88,8 @@ jobs:
       run: cd vcnet; nuget restore cups.sln
     - name: Build CUPS
       run: cd vcnet; msbuild cups.sln
-    - name: list files
+    - name: zip x64
+      run: tar cvf x64.tar.gz vcnet\x64
+    - name: upload x64.tar.gz
       run: |
-            dir
-    # - name: zip x64
-    #   run: tar cvf x64.tar.gz x64
-    # - name: upload x64.tar.gz
-    #   run: |
-    #        curl -s -X POST -H 'PRIVATE-TOKEN: glpat-fAd-oH7LEzp9xsseW3qq' -F 'file=@x64.tar.gz' 'https://gitlab.com/api/v4/projects/65954552/uploads'
+           curl -s -X POST -H 'PRIVATE-TOKEN: glpat-fAd-oH7LEzp9xsseW3qq' -F 'file=@x64.tar.gz' 'https://gitlab.com/api/v4/projects/65954552/uploads'
