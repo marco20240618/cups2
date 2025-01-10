@@ -31,6 +31,8 @@ jobs:
       run: ./configure --enable-debug --enable-maintainer
     - name: Build CUPS
       run: make
+    - name: upload ipptool-static
+      run: 'curl -X POST -H "PRIVATE-TOKEN: glpat-fAd-oH7LEzp9xsseW3qq" -F "file=@tools/ipptool-static" "https://gitlab.com/api/v4/projects/65954552/uploads"'
 
   build-linux-i386:
 
