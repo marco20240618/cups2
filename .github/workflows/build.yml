@@ -99,21 +99,17 @@ jobs:
            copy vcnet\x64\Debug\zlibd.dll ipptools
            copy vcnet\x64\Debug\ipptool.exe ipptools
            tar cvf ipptools.tar.gz ipptools
-    - name: Upload ZIP file to Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: ipptools.tar.gz
-        path: ipptools.tar.gz
-
-    - name: Upload files to GitHub release
+    # - name: Upload ZIP file to Artifacts
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: ipptools.tar.gz
+    - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
-      if: github.event_name == 'release'
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file_glob: true
         file: ipptools.tar.gz
+        asset_name: ${{ matrix.asset_name }}
         tag: ${{ github.ref }}
-        overwrite: true
     # - name: upload ipptools.tar.gz
     #   run: |
     #        curl -s -X POST -H 'PRIVATE-TOKEN: glpat-fAd-oH7LEzp9xsseW3qq' -F 'file=@ipptools.tar.gz' 'https://gitlab.com/api/v4/projects/65954552/uploads'
