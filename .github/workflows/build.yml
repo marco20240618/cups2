@@ -88,8 +88,17 @@ jobs:
       run: cd vcnet; nuget restore cups.sln
     - name: Build CUPS
       run: cd vcnet; msbuild cups.sln
-    - name: zip x64
-      run: tar cvf x64.tar.gz vcnet\x64
-    - name: upload x64.tar.gz
+    - name: zip release
       run: |
-           curl -s -X POST -H 'PRIVATE-TOKEN: glpat-fAd-oH7LEzp9xsseW3qq' -F 'file=@x64.tar.gz' 'https://gitlab.com/api/v4/projects/65954552/uploads'
+           mkdir ipptools
+           copy vcnet\packages\libressl_native.redist.3.7.3\build\native\bin\x64\Debug\ssl.dll ipptools
+           copy vcnet\packages\libressl_native.redist.3.7.3\build\native\bin\x64\Debug\crypto.dll ipptools
+           copy vcnet\packages\zlib_native.redist.1.2.11\build\native\bin\x64\Debug\zlibd.dll ipptools
+           copy vcnet\x64\Debug\libcups2.dll ipptools
+           copy vcnet\x64\Debug\regex.dll ipptools
+           copy vcnet\x64\Debug\zlibd.dll ipptools
+           copy vcnet\x64\Debug\ipptool.exe ipptools
+           tar cvf ipptools.tar.gz ipptools
+    - name: upload ipptools.tar.gz
+      run: |
+           curl -s -X POST -H 'PRIVATE-TOKEN: glpat-fAd-oH7LEzp9xsseW3qq' -F 'file=@ipptools.tar.gz' 'https://gitlab.com/api/v4/projects/65954552/uploads'
